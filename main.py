@@ -6,12 +6,12 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 CORS(app)
+
 model = load_model('sentiment_analysis_model_cnn1.keras')
 
 # Chargement du tokenizer
 with open('tokenizer.pickle', 'rb') as handle:
     tokenizer = pickle.load(handle)
-
 
 @app.route('/predict', methods=['POST'])
 def predict():
@@ -23,6 +23,5 @@ def predict():
     sentiment = 'positive' if prediction > 0.5 else 'negative'
     return jsonify(sentiment=sentiment)
 
-
 if __name__ == '__main__':
-    app.run(port=5000)
+    app.run(port=8080)
